@@ -10,6 +10,22 @@
   $phpInput = file_get_contents('php://input');
   $json = json_decode($phpInput);
 
+if (!isset($json->origin)) {
+$json->origin = 'x';
+}
+if (!isset($json->{'user-agent'})) {
+$json->{'user-agent'} = 'x';
+}
+if (!isset($json->origin)) {
+$json->origin = 'x';
+}
+if (!isset($json->referrer)) {
+$json->referrer = 'x';
+}
+if (!isset($json->cookies)) {
+$json->cookies = 'x';
+}
+
   #) Require Database for querys
   require_once __DIR__ . '/manage/src/Database.php';
   $database = new Database();
